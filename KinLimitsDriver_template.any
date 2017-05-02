@@ -1,6 +1,6 @@
 #include "helper_macros.any"
 
-#class_template KinLimitsDriver(AnyKinMeasure &KinMeasure, _DEBUG=1) {
+#class_template KinLimitsDriver(AnyKinMeasure &KinMeasure, _DEBUG=0) {
 
   
 #var AnyVar LowerLimit; 
