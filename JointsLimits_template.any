@@ -1,8 +1,3 @@
-
-
-
-
-
 #import "KinLimitsDriver_template.any"
 
 #class_template CreateJointLimitDrivers  (
@@ -23,11 +18,19 @@
       ELBOW_FLEXION = "Off",
       ELBOW_PRONATION = "Off",
       WRIST_FLEXION = "Off",
-      WRIST_ABDUCTION = "Off"
-) {
+      WRIST_ABDUCTION = "Off",
+      HIP_ABDUCTION = "Off",
+      HIP_FLEXION = "Off",
+      HIP_EXTERNAL_ROTATION = "Off",
+      KNEE_FLEXION = "Off",
+      ANKLE_PLANTAR_FLEXION = "Off",
+      ANKLE_SUBTALAR_EVERSION = "Off"
+    ) {
 
-    AnyFolder Trunk = {
-       AnyFolder PelvisThoraxExtension = {
+    AnyFolder Trunk = 
+    {
+       AnyFolder PelvisThoraxExtension = 
+       {
           #var AnyVar HighLimit = 30;
           #var AnyVar LowerLimit= -80;
           #if PELVIS_THORAX_EXTENSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -38,7 +41,8 @@
        };
 
 
-       AnyFolder PelvisThoraxLateralBending= {
+       AnyFolder PelvisThoraxLateralBending= 
+       {
           #var AnyVar HighLimit = 40;
           #var AnyVar LowerLimit= -40;
           #if PELVIS_THORAX_LATERAL_BENDING == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -48,7 +52,8 @@
           #endif
        };
        
-       AnyFolder PelvisThoraxRotation= {
+       AnyFolder PelvisThoraxRotation= 
+       {
           #var AnyVar HighLimit = 90;
           #var AnyVar LowerLimit= -90;
           #if PELVIS_THORAX_ROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -58,7 +63,8 @@
           #endif
        };
        
-       AnyFolder SkullThoraxFlexion= {
+       AnyFolder SkullThoraxFlexion= 
+       {
           #var AnyVar HighLimit = 80;
           #var AnyVar LowerLimit= -80;
           #if SKULL_THORAX_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -68,7 +74,8 @@
           #endif
        };
        
-       AnyFolder SkullThoraxLateralBending= {
+       AnyFolder SkullThoraxLateralBending= 
+       {
           #var AnyVar HighLimit = 80;
           #var AnyVar LowerLimit= -80;
           #if SKULL_THORAX_LATERALBENDING == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -78,7 +85,8 @@
           #endif
        };
        
-       AnyFolder SkullThoraxRotation= {
+       AnyFolder SkullThoraxRotation= 
+       {
           #var AnyVar HighLimit = 90;
           #var AnyVar LowerLimit= -90;
           #if SKULL_THORAX_ROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -87,11 +95,13 @@
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
        };
-     };
+    };
      
      
-     AnyFolder Right = {
-       AnyFolder SternoClavicularProtraction= {
+     AnyFolder Right = 
+     {
+       AnyFolder SternoClavicularProtraction= 
+       {
           #var AnyVar HighLimit = -23 + 30;
           #var AnyVar LowerLimit= -23 - 30;
           #if STERNO_CLAVICULAR_PROTRACTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -101,7 +111,7 @@
           #endif
        };
        
-       AnyFolder SternoClavicularElevation= {
+       AnyFolder SternoClavicularElevation = {
           #var AnyVar HighLimit = 11.5 + 70;
           #var AnyVar LowerLimit= 11.5 - 20;
           #if STERNO_CLAVICULAR_ELEVATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -111,7 +121,8 @@
           #endif
        };
        
-       AnyFolder SternoClavicularAxialRotation= {
+       AnyFolder SternoClavicularAxialRotation= 
+       {
           #var AnyVar HighLimit = -20 + 15;
           #var AnyVar LowerLimit= -20 - 15;
           #if STERNO_CLAVICULAR_AXIALROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -141,7 +152,8 @@
 //          #endif
 //       };
        
-       AnyFolder GlenohumeralFlexion= {
+       AnyFolder GlenohumeralFlexion= 
+       {
           #var AnyVar HighLimit = 180;
           #var AnyVar LowerLimit= -90;
           #if GLENOHUMERAL_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -151,7 +163,8 @@
           #endif
        };
        
-       AnyFolder GlenohumeralExternalRotation= {
+       AnyFolder GlenohumeralExternalRotation= 
+       {
           #var AnyVar HighLimit = 60;
           #var AnyVar LowerLimit= -60;
           #if GLENOHUMERAL_EXTERNAL_ROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -161,7 +174,8 @@
           #endif
        };
        
-       AnyFolder GlenohumeralAbduction= {
+       AnyFolder GlenohumeralAbduction= 
+       {
           #var AnyVar HighLimit = 200;
           #var AnyVar LowerLimit= -20;
           #if GLENOHUMERAL_ABDUCTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -171,7 +185,8 @@
           #endif
        };
        
-       AnyFolder ElbowFlexion= {
+       AnyFolder ElbowFlexion= 
+       {
           #var AnyVar HighLimit = 80;
           #var AnyVar LowerLimit= 0;
           #if ELBOW_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -181,7 +196,8 @@
           #endif
        };
        
-       AnyFolder ElbowPronation= {
+       AnyFolder ElbowPronation= 
+       {
           #var AnyVar HighLimit = 90;
           #var AnyVar LowerLimit= -90;
           #if ELBOW_PRONATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -191,7 +207,8 @@
           #endif
        };
        
-       AnyFolder WristFlexion= {
+       AnyFolder WristFlexion= 
+       {
           #var AnyVar HighLimit = 90;
           #var AnyVar LowerLimit= -90;
           #if WRIST_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -201,7 +218,8 @@
           #endif
        };
        
-       AnyFolder WristAbduction= {
+       AnyFolder WristAbduction= 
+       {
           #var AnyVar HighLimit = 30;
           #var AnyVar LowerLimit= -30;
           #if WRIST_ABDUCTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -209,10 +227,82 @@
              KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.WristAbduction
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
-       };      
+       };   
+
+       AnyFolder HipFlexion = 
+       {
+          #var AnyVar HighLimit = 100;
+          #var AnyVar LowerLimit= -30;
+          #if HIP_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.HipFlexion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };   
+
+       AnyFolder HipAbduction = 
+       {
+          #var AnyVar HighLimit = 45;
+          #var AnyVar LowerLimit= -20;
+          #if HIP_ABDUCTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.HipAbduction
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       }; 
+
+       AnyFolder HipExternalRotation = 
+       {
+          #var AnyVar HighLimit =60;
+          #var AnyVar LowerLimit= -45;
+          #if HIP_EXTERNAL_ROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.HipExternalRotation
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
+       AnyFolder KneeFlexion = 
+       {
+          #var AnyVar HighLimit =160;
+          #var AnyVar LowerLimit= 0;
+          #if KNEE_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.KneeFlexion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
+       AnyFolder AnklePlantarFlexion = 
+       {
+          #var AnyVar HighLimit =80;
+          #var AnyVar LowerLimit= 40;
+          #if ANKLE_PLANTAR_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.AnklePlantarFlexion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
+       AnyFolder AnkleSubtalarEversion = 
+       {
+          #var AnyVar HighLimit =40;
+          #var AnyVar LowerLimit=-40;
+          #if ANKLE_SUBTALAR_EVERSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.AnkleSubtalarEversion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
      };
-     AnyFolder Left = {
-       AnyFolder SternoClavicularProtraction= {
+
+
+
+     AnyFolder Left = 
+     {
+       AnyFolder SternoClavicularProtraction= 
+       {
           #var AnyVar HighLimit = -23 + 30;
           #var AnyVar LowerLimit= -23 - 30;
           #if STERNO_CLAVICULAR_PROTRACTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -222,7 +312,7 @@
           #endif
        };
        
-       AnyFolder SternoClavicularElevation= {
+       AnyFolder SternoClavicularElevation = {
           #var AnyVar HighLimit = 11.5 + 70;
           #var AnyVar LowerLimit= 11.5 - 20;
           #if STERNO_CLAVICULAR_ELEVATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -232,7 +322,8 @@
           #endif
        };
        
-       AnyFolder SternoClavicularAxialRotation= {
+       AnyFolder SternoClavicularAxialRotation= 
+       {
           #var AnyVar HighLimit = -20 + 15;
           #var AnyVar LowerLimit= -20 - 15;
           #if STERNO_CLAVICULAR_AXIALROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -262,7 +353,8 @@
 //          #endif
 //       };
        
-       AnyFolder GlenohumeralFlexion= {
+       AnyFolder GlenohumeralFlexion= 
+       {
           #var AnyVar HighLimit = 180;
           #var AnyVar LowerLimit= -90;
           #if GLENOHUMERAL_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -272,7 +364,8 @@
           #endif
        };
        
-       AnyFolder GlenohumeralExternalRotation= {
+       AnyFolder GlenohumeralExternalRotation= 
+       {
           #var AnyVar HighLimit = 60;
           #var AnyVar LowerLimit= -60;
           #if GLENOHUMERAL_EXTERNAL_ROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -282,7 +375,8 @@
           #endif
        };
        
-       AnyFolder GlenohumeralAbduction= {
+       AnyFolder GlenohumeralAbduction= 
+       {
           #var AnyVar HighLimit = 200;
           #var AnyVar LowerLimit= -20;
           #if GLENOHUMERAL_ABDUCTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -292,7 +386,8 @@
           #endif
        };
        
-       AnyFolder ElbowFlexion= {
+       AnyFolder ElbowFlexion= 
+       {
           #var AnyVar HighLimit = 80;
           #var AnyVar LowerLimit= 0;
           #if ELBOW_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -302,7 +397,8 @@
           #endif
        };
        
-       AnyFolder ElbowPronation= {
+       AnyFolder ElbowPronation= 
+       {
           #var AnyVar HighLimit = 90;
           #var AnyVar LowerLimit= -90;
           #if ELBOW_PRONATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -312,7 +408,8 @@
           #endif
        };
        
-       AnyFolder WristFlexion= {
+       AnyFolder WristFlexion= 
+       {
           #var AnyVar HighLimit = 90;
           #var AnyVar LowerLimit= -90;
           #if WRIST_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -322,7 +419,8 @@
           #endif
        };
        
-       AnyFolder WristAbduction= {
+       AnyFolder WristAbduction= 
+       {
           #var AnyVar HighLimit = 30;
           #var AnyVar LowerLimit= -30;
           #if WRIST_ABDUCTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
@@ -330,7 +428,74 @@
              KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.WristAbduction
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
-       };      
+       };   
+
+       AnyFolder HipFlexion = 
+       {
+          #var AnyVar HighLimit = 100;
+          #var AnyVar LowerLimit= -30;
+          #if HIP_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.HipFlexion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };   
+
+       AnyFolder HipAbduction = 
+       {
+          #var AnyVar HighLimit = 45;
+          #var AnyVar LowerLimit= -20;
+          #if HIP_ABDUCTION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.HipAbduction
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       }; 
+
+       AnyFolder HipExternalRotation = 
+       {
+          #var AnyVar HighLimit =60;
+          #var AnyVar LowerLimit= -45;
+          #if HIP_EXTERNAL_ROTATION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.HipExternalRotation
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
+       AnyFolder KneeFlexion = 
+       {
+          #var AnyVar HighLimit =160;
+          #var AnyVar LowerLimit= 0;
+          #if KNEE_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.KneeFlexion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
+       AnyFolder AnklePlantarFlexion = 
+       {
+          #var AnyVar HighLimit =80;
+          #var AnyVar LowerLimit= 40;
+          #if ANKLE_PLANTAR_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.AnklePlantarFlexion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
+       AnyFolder AnkleSubtalarEversion = 
+       {
+          #var AnyVar HighLimit =40;
+          #var AnyVar LowerLimit=-40;
+          #if ANKLE_SUBTALAR_EVERSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.AnkleSubtalarEversion
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };  
+
      };
    
  };
