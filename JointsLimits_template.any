@@ -24,7 +24,8 @@
       HIP_EXTERNAL_ROTATION = "Off",
       KNEE_FLEXION = "Off",
       ANKLE_PLANTAR_FLEXION = "Off",
-      ANKLE_SUBTALAR_EVERSION = "Off"
+      SUBTALAR_EVERSION = "Off",
+      NECK_3DOF = "Off"
     ) {
 
     AnyFolder Trunk = 
@@ -62,7 +63,7 @@
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
        };
-       
+       #if NECK_3DOF == "On"
        AnyFolder SkullThoraxFlexion= 
        {
           #var AnyVar HighLimit = 80;
@@ -95,6 +96,19 @@
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
        };
+       #else
+       AnyFolder SkullThoraxFlexion= 
+       {
+          #var AnyVar HighLimit = 80;
+          #var AnyVar LowerLimit= -80;
+          #if SKULL_THORAX_FLEXION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          KinLimitsDriver Driver(
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Trunk.NeckJoint
+          ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
+          #endif
+       };
+       
+       #endif
     };
      
      
@@ -284,13 +298,13 @@
           #endif
        };  
 
-       AnyFolder AnkleSubtalarEversion = 
+       AnyFolder SubtalarEversion = 
        {
           #var AnyVar HighLimit =40;
           #var AnyVar LowerLimit=-40;
-          #if ANKLE_SUBTALAR_EVERSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          #if SUBTALAR_EVERSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
           KinLimitsDriver Driver(
-             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.AnkleSubtalarEversion
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Right.SubTalarEversion
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
        };  
@@ -485,13 +499,13 @@
           #endif
        };  
 
-       AnyFolder AnkleSubtalarEversion = 
+       AnyFolder SubtalarEversion = 
        {
           #var AnyVar HighLimit =40;
           #var AnyVar LowerLimit=-40;
-          #if ANKLE_SUBTALAR_EVERSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
+          #if SUBTALAR_EVERSION == "On" | ENABLE_ALL_JOINT_LIMITS == "On"
           KinLimitsDriver Driver(
-             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.AnkleSubtalarEversion
+             KinMeasure= HUMAN_MODEL.BodyModel.Interface.Left.SubTalarEversion
           ) = { LowerLimit =.LowerLimit;HighLimit = .HighLimit; MeasureConversion=180/pi;};
           #endif
        };  
