@@ -1,7 +1,5 @@
 
 #include "KinLimitsDriver_template.any"
-#include "KinLimitsDriver_template2.any"
-
 
 Main ={
   AnyFolder Model ={
@@ -43,8 +41,8 @@ Main ={
     {
       LowerLimit = -10;
       HighLimit = 1;
-      HighLimitHard= 1.0001;
-      ErrorAtHardLimit = 10;
+      //HighLimitHard= 1.0000001;
+      HighLimitHard= 2;
     };
     
     
@@ -55,7 +53,6 @@ Main ={
   AnyBodyStudy  MyStudy ={
     AnyFolder &ref=.Model;
     Gravity ={0,-9.81,0};
-    tEnd = 2;
     InitialConditions.SolverType = KinSolOverDeterminate;
     Kinematics.SolverType = KinSolOverDeterminate; 
   };
