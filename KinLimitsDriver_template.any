@@ -6,11 +6,11 @@
 #var AnyVar LowerLimit; 
 #var AnyVar HighLimit;
   
-#var AnyVar DriverPhaseIn = 0.05*(HighLimit - LowerLimit) ;
+#var AnyVar DriverPhaseIn = 0.01*(HighLimit - LowerLimit) ;
 #var AnyVar LowerLimitHard= LowerLimit - DriverPhaseIn ;
 #var AnyVar HighLimitHard= HighLimit + DriverPhaseIn ;
 
-#var AnyVar ErrorAtHardLimit = 0.05;
+#var AnyVar ErrorAtHardLimit = 1;
 #var AnyVar ErrorAtLowerHardLimit = ErrorAtHardLimit;
 #var AnyVar ErrorAtHighHardLimit = ErrorAtHardLimit;
 
