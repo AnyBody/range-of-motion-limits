@@ -1,0 +1,23 @@
+#include "JointsLimits_template.any"
+
+#include "<ANYBODY_PATH_INSTALLDIR>/AMMR/Application/libdef.any"
+
+
+Main = { 
+  
+  //#path BM_MANNEQUIN_FILE "Mannequin.any"
+  // Include the HumanModel from the repository
+  #include "<ANYBODY_PATH_BODY>/HumanModel.any"
+
+  AnyBodyStudy Study = {
+     AnyFolder &model = .HumanModel.BodyModelWithDefaultDrivers;
+     Gravity = {0.0, -9.81, 0};  
+       
+     CreateJointLimitDrivers JointLimits( ENABLE_ALL_JOINT_LIMITS = "On" )= {}; 
+       
+  };  
+
+
+};// Main
+
+
