@@ -3,7 +3,8 @@
 #define _HELPER_MACORS_ANY_
 
 // Running number to compare file versions.
-#define _HELPER_MACORS_ANY_VERSION 2
+#define _HELPER_MACORS_ANY_VERSION 3
+
 
 // Inline implemention of an MxN zero matrix
 #define ZEROS(M,N) reshape(0.0*iarr(0,(M)*(N)-1),{M,N})
@@ -68,7 +69,7 @@ float smoothramp(float edge0, float edge1, float x)
     x = clamp((x - edge0)/(2*(edge1 - edge0)), 0.0, 0.5);
     // Evaluate polynomial
     if (x < 0.5) {
-    . return x*x*x*(x*(x*6 - 15) + 10)
+      return x*x*x*(x*(x*6 - 15) + 10)
     }
     else {
       return 2*x - 0.5
@@ -139,6 +140,9 @@ Main =
 };
 #endif
  
+#else
+
+
 #endif
 // -*- mode: cpp;-*-
 // vim: syntax=cpp
