@@ -7,8 +7,11 @@ Main = {
   
   //#path BM_MANNEQUIN_FILE "Mannequin.any"
   // Include the HumanModel from the repository
-  #define BM_ARM_RIGHT OFF
-  #define BM_TRUNK_NECK OFF
+  #define BM_ARM_RIGHT ON
+  #define BM_ARM_LEFT ON
+  #define BM_TRUNK_NECK ON
+  #define BM_LEG_RIGHT CONST_LEG_MODEL_Leg
+  #define BM_LEG_LEFT CONST_LEG_MODEL_Leg
 
   #include "<ANYBODY_PATH_BODY>/HumanModel.any"
 
