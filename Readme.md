@@ -8,7 +8,7 @@ level class template `RangeOfMotionLimits` which makes it easy to add
 kinematic limits to all joints of Body model in the AnyBody Managed Model
 Repository (AMMR).
 
-## Usage:
+## Usage: 
 
 To use the high level class template `RangeOfMotionLimits` you must first 
 include the file in which it is defined. 
@@ -42,10 +42,11 @@ Main = {
       
 ```
 
-If some joint should not have limits, the class accepts arguments for disabling individual joint limits. eq
+If some joint should not have range of motion limits, the class accepts
+arguments for disabling individual joint limits:
 
 ```
-  RangeOfMotionLimits JointLimits(
+  RangeOfMotionLimits RoMLimits(
     PELVIS_THORAX_LATERAL_BENDING = "Off"
     ... 
 ```

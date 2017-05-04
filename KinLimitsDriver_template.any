@@ -1,5 +1,44 @@
-#include "helper_macros.any"
+/* 
+HOW TO USE:
 
+Add `#include "../path/to/KinLimitsDriver_template.any"` in the beginning
+of your main file. Then create the `KinLimitsDriver` class inside Main.
+
+In the following example we add a limit driver to `MyKinematicMeasure`, which limits the 
+measures between -1 and 1. 
+
+```
+#include "../path/to/KinLimitsDriver_template.any"
+
+Main = {
+
+  KinLimitsDriver limit_driver(
+      KinMeasure = ..path.to.MyKinematicMeasure
+   ) = {
+     LowerLimit = -1;
+     HighLimit = 1;
+   }; 
+      
+```
+
+The class supports the following settings:
+
+|-----------------------|--------------|------------------------------------------------------------------------------|
+| Variable              | Type         |  Default                    | Desciption                                     |
+|-----------------------|--------------|------------------------------------------------------------------------------|
+| LowerLimit            | AnyFloat     |  -                          | The low limit of the driver                    |
+| HighLimit             | AnyFloat     |  -                          | The high limit of the driver                   |
+| DriverPhaseIn         | AnyFloat     |  0.1*(HighLimit-LowerLimit) | How fast the limits driver ramps up.           |
+| HighLimitHard         | AnyFloat     |  HighLimit + DriverPhaseIn  | Low limit where the driver is fully ramped up  |
+| LowerLimitHard        | AnyFloat     |  LowerLimit - DriverPhaseIn | High limit where the driver is fully ramped up |
+| ErrorAtHardLimit      | AnyFloat     |  1                          | The kinematic error at the hard limits         |
+| ErrorAtLowerHardLimit | AnyFloat     |  ErrorAtHardLimit           | The kinematic error at the lower hard limit    |
+| ErrorAtLowerHardLimit | AnyFloat     |  ErrorAtHardLimit           | The kinematic error at the high hard limit     |
+| MeasureConversion     | AnyFloat     |  1                          | Constant factor which can be applied to the measure |
+|-----------------------|--------------|------------------------------------------------------------------------------| 
+
+
+*/
 
 
 /*
