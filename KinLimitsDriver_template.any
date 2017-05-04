@@ -1,5 +1,35 @@
 #include "helper_macros.any"
 
+
+
+/*
+// Inline AnyScript implementation of the following c++ function. 
+This is just half a smoother step function which continues liniearly when it
+reaches it steepest value.
+float smoothramp(float edge0, float edge1, float x)
+{
+    // Scale, and clamp x to 0..1 range
+    x = clamp((x - edge0)/(2*(edge1 - edge0)), 0.0, 0.5);
+    // Evaluate polynomial
+    if (x < 0.5) {
+      return x*x*x*(x*(x*6 - 15) + 10)
+    }
+    else {
+      return 2*x - 0.5
+    };
+};
+*/
+// 1st and 2nd order derivatives at edge0 are 0
+#define KIN_LIMIT_SMOOTHRAMP(edge0, edge1, val) 2*iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))), 0.5), -0.5+2*(((val)-(edge0))/(2*((edge1)-(edge0)))),\
+                                                mult(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
+                                               ,mult(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
+                                               ,mult(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
+                                               ,(mult(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
+                                               ,(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
+                                                *6 - 15)) + 10) )))\
+                                               )
+
+
 #class_template KinLimitsDriver(AnyKinMeasure &KinMeasure, _DEBUG=0) {
 
   
@@ -49,15 +79,15 @@ AnyFunInterpol JointLimitErrorFunction=
 {  
   Type = Bspline;
   T = .AbscissaFunction(1.0*iarr(0,999))' ;
-  Data = {.ErrorAtLowerHardLimit*SMOOTHRAMP(.LowerLimit, .LowerLimitHard, T) + 
-          .ErrorAtHighHardLimit*SMOOTHRAMP(.HighLimit, .HighLimitHard, T)} ;
+  Data = {.ErrorAtLowerHardLimit*KIN_LIMIT_SMOOTHRAMP(.LowerLimit, .LowerLimitHard, T) + 
+          .ErrorAtHighHardLimit*KIN_LIMIT_SMOOTHRAMP(.HighLimit, .HighLimitHard, T)} ;
 };
 
 #if _DEBUG
 AnyFunInterpol &FT = JointLimitErrorFunction;
 AnyFloat Test = {FT (-10.0), FT( -5.0), FT (0.0), FT (5.0), FT (10.0)}; 
 AnyFloat test_fullrange = JointLimitErrorFunction(1.0*iarr(ceil(min(AbscissaFunction.M'[1])),floor(max(AbscissaFunction.M'[1]))))';
-AnyFloat range = LINSPACE(LowerLimitHard, HighLimitHard,1000);
+AnyFloat range = iarr(0, 1000-1)*(HighLimitHard-LowerLimitHard)/(1000-1)+LowerLimitHard
 AnyFloat test_range = JointLimitErrorFunction(range)';
 #endif
 
@@ -87,7 +117,5 @@ AnyKinEqSimpleDriver JointLimitDriver =
 
 
 };
-
-
 
 
