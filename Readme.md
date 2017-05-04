@@ -1,21 +1,24 @@
 # Joint limits
 
-This repository contains the code for adding joint limits to the human body model.
+This repository contains the code for adding range-of-motion limits drivers to the human body model.
 
 The implementation consist of two AnyScript class templates. A low level class
 generic template `KinLimitsDriver` which can add limits to any kinematic measures, and high
-level class template `CreateJointLimitDrivers` which makes it easy to add
+level class template `RangeOfMotionLimits` which makes it easy to add
 kinematic limits to all joints of Body model in the AnyBody Managed Model
 Repository (AMMR).
 
-## Usage: CreateJointLimitDrivers
+## Usage:
 
-Add `#include "../path/to/KinLimitsDriver_template.any"` in the beginning
-of your main file. Then create the `KinLimitsDriver` class inside Main after 
+To use the high level class template `RangeOfMotionLimits` you must first 
+include the file in which it is defined. 
+
+Add `#include "../path/to/RangeOfMotionLimits_template.any"` in the beginning
+of your main file. Then create the `RangeOfMotionLimits` class inside Main after 
 the human model is included in the model:
 
-```
-#include "../path/to/KinLimitsDriver_template.any"
+```c#
+#include "../path/to/RangeOfMotionLimits_template.any"
 
 Main = {
 
@@ -25,7 +28,7 @@ Main = {
   #include "<ANYBODY_PATH_BODY>/HumanModel.any"
 
 
-  CreateJointLimitDrivers JointLimits(
+  RangeOfMotionLimits ROM_Limits(
       ARM_RIGHT = BM_ARM_RIGHT,
       ARM_LEFT = BM_ARM_LEFT,
       LEG_RIGHT = BM_LEG_RIGHT,
@@ -42,7 +45,7 @@ Main = {
 If some joint should not have limits, the class accepts arguments for disabling individual joint limits. eq
 
 ```
-  CreateJointLimitDrivers JointLimits(
+  RangeOfMotionLimits JointLimits(
     PELVIS_THORAX_LATERAL_BENDING = "Off"
     ... 
 ```
