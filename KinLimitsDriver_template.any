@@ -42,9 +42,13 @@ The class supports the following settings:
 
 
 /*
-// Inline AnyScript implementation of the following c++ function. 
+The class uses the builtin smoothramp function, to create a AnyFunInterpol function 
+which is used by the AnyKinFunComb1 class. 
+
+The smoothramp function is essentially this c++ function. 
 This is just half a smoother step function which continues liniearly when it
-reaches it steepest value.
+reaches it steepest value. See https://en.wikipedia.org/wiki/Smoothstep
+
 float smoothramp(float edge0, float edge1, float x)
 {
     // Scale, and clamp x to 0..1 range
@@ -58,7 +62,11 @@ float smoothramp(float edge0, float edge1, float x)
     };
 };
 */
-// 1st and 2nd order derivatives at edge0 are 0
+#if ANYBODY_V1 >= 7
+#define KIN_LIMIT_SMOOTHRAMP smoothramp
+#else
+// The smoothramp function is not available in AMS 6 and below. 
+// This just defines an equallent implementation directly in AnyScript.
 #define KIN_LIMIT_SMOOTHRAMP(edge0, edge1, val) 2*iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))), 0.5), -0.5+2*(((val)-(edge0))/(2*((edge1)-(edge0)))),\
                                                 mult(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
                                                ,mult(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
@@ -67,7 +75,9 @@ float smoothramp(float edge0, float edge1, float x)
                                                ,(iffun(ltfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.0), 0*(val), iffun(gtfun(((val)-(edge0))/(2*((edge1)-(edge0))),0.5),0*(val)+0.5, ((val)-(edge0))/(2*((edge1)-(edge0)))))\
                                                 *6 - 15)) + 10) )))\
                                                )
-
+#endif
+                                               
+                                               
 
 #class_template KinLimitsDriver(AnyKinMeasure &KinMeasure, _DEBUG=0) {
 

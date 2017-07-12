@@ -1,65 +1,107 @@
-
 #include "KinLimitsDriver_template.any"
 
-Main ={
-  AnyFolder Model ={
+
+
+Main =
+{
+  
+  
+  AnyBodyStudy  KinLimitExampleStudy =
+  {
+    AnyFolder &Model=.Model;
+    Gravity ={0,-9.81,0};
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate; 
+      
+    /// Add a kinematic limit to the slider joint of segment2.
+    /// The KinLimitsDriver template uses AnyKinFunComb1 to restrict
+    /// the 'KinMeasure' within the range [LowerLimit, HighLimit] 
+    KinLimitsDriver Limit(KinMeasure = .Model.Slider1_joint) =
+    {
+      LowerLimit = -10;
+      HighLimit = 1;
+      HighLimitHard= 1.00001;
+    };
+  };
+   
+  
     
-    AnyFixedRefFrame GlobalRef ={
-      AnyDrawRefFrame drw ={ScaleXYZ =0.3*{1,1,1};};
+  /// Define the model with two segments moving on 
+  /// prismatic joints. A driver moves segment 2 with a constant speed
+  /// which pulls segment 1 along.
+  AnyFolder Model =
+  {
+    AnyFixedRefFrame GlobalRef =
+    {
+      AnyDrawRefFrame drw ={ScaleXYZ =0.2*{1,1,1};};
     };
     
-    AnySeg Slider1 ={ r0={0,0,0.1};  Mass =10; Jii={0,0,0};  AnyDrawRefFrame drw ={ScaleXYZ =0.3*{1,1,1};RGB ={0,0,1};}; };
-    AnySeg Slider2 ={ r0={0,0,0.5}; Mass =10; Jii={0,0,0}; AnyDrawRefFrame drw ={ScaleXYZ =0.3*{1,1,1};RGB ={0,1,0};}; };
+    AnySeg Seg1_segment =
+    {
+      r0={0,0,0.1};
+      Mass =10;
+      Jii={1,1,1};
+      AnyDrawRefFrame drw ={ScaleXYZ =0.3*{1,1,1};RGB ={0,0,1};}; 
+    };
     
-    AnyPrismaticJoint Jnt1 ={ AnyRefFrame &ref1=.GlobalRef; AnyRefFrame &ref2=.Slider1; };
-    AnyPrismaticJoint Jnt2 ={AnyRefFrame &ref1=.GlobalRef; AnyRefFrame &ref2=.Slider2; };
+    AnySeg Seg2_segment =
+    { r0={0,0,0.5};
+      Mass =10; 
+      Jii={1,1,1};
+      AnyDrawRefFrame drw ={ScaleXYZ =0.3*{1,1,1};RGB ={0,1,0};};
+    };
     
-    AnyKinEqSimpleDriver Slider2Driver ={
-      AnyPrismaticJoint &ref=.Jnt2;
+    /// Prismatic joint for Seg1 to slide along
+    AnyPrismaticJoint Slider1_joint =
+    {
+      AnyRefFrame &ref1=.GlobalRef;
+      AnyRefFrame &ref2=.Seg1_segment;
+    };
+    
+    /// Prismatic joint for Seg2 to slide along
+    AnyPrismaticJoint Slider2_joint =
+    {
+      AnyRefFrame &ref1=.GlobalRef; 
+      AnyRefFrame &ref2=.Seg2_segment;
+    };
+    
+    /// Moves the Seg2 along the Slider2_joint prismatic joint
+    /// with a constant speed.
+    AnyKinEqSimpleDriver Slider2_driver =
+    {
+      AnyPrismaticJoint &ref=.Slider2_joint;
       DriverPos={0.25};
       DriverVel={2.5};
     };
     
-    AnyKinPLine Slider1ToSlider2 ={
-      AnyRefFrame &ref1=.Slider1;
-      AnyRefFrame &ref2=.Slider2;
+    /// Measures the distance between Seg1 and seg2
+    AnyKinPLine Seg1ToSeg2_measure ={
+      AnyRefFrame &ref1=.Seg1_segment;
+      AnyRefFrame &ref2=.Seg2_segment;
       AnyDrawPLine drw ={Thickness=0.005;RGB={0,0,1};};
     };
     
-    AnyKinEqSimpleDriver Slider1Driver ={
-      AnyKinPLine &ref=.Slider1ToSlider2;
+    /// Drives the distance between Seg1 and Seg2 to a constant value
+    /// Imagine this as Seg2 pulling Seg1 using a rope with a fixed length.
+    AnyKinEqSimpleDriver Seg1ToSeg2_driver ={
+      AnyKinPLine &ref=.Seg1ToSeg2_measure;
       DriverPos={0.5};
       DriverVel={0.0};
       CType={Soft};
       AnyFunConst ConstFun = { Value = {0.1}; };
       WeightFun = {&ConstFun};      
           
-    };
-    
-
-    KinLimitsDriver Limit(KinMeasure = .Jnt1) =
-    {
-      LowerLimit = -10;
-      HighLimit = 1;
-      //HighLimitHard= 1.0000001;
-      HighLimitHard= 2;
-    };
-    
-    
+    }; 
         
     
   }; //Model
+   
   
-  AnyBodyStudy  MyStudy ={
-    AnyFolder &ref=.Model;
-    Gravity ={0,-9.81,0};
-    InitialConditions.SolverType = KinSolOverDeterminate;
-    Kinematics.SolverType = KinSolOverDeterminate; 
+    
+  AnyOperationSequence RunApplication = 
+  {
+    AnyOperation& run = Main.KinLimitExampleStudy.Kinematics;
   };
- 
-  
-  
-  
-};
 
+};
 
