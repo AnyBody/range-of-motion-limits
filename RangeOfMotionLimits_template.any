@@ -79,8 +79,8 @@ arguments for disabling individual joint limits:
       ARM_LEFT,
       LEG_RIGHT,
       LEG_LEFT,
-      TRUNK_NECK = 1           
-    ) {
+      TRUNK_NECK = 1
+   ) {
 
       
       
@@ -112,11 +112,7 @@ arguments for disabling individual joint limits:
          #var AnyVector HipExternalRotation            = DesignVar({-45,  60});
          #var AnyVector KneeFlexion                    = DesignVar({0,  160});
          #var AnyVector AnklePlantarFlexion            = DesignVar({-80,  40});
-         #if LEG_RIGHT == "Leg"
-         #var AnyVector AnkleEversion                  = DesignVar({-40,  40});
-         #else
          #var AnyVector SubTalarEversion               = DesignVar({-40,  40});
-         #endif
       };
       AnyFolder Left = 
       {
@@ -135,11 +131,7 @@ arguments for disabling individual joint limits:
          #var AnyVector HipExternalRotation            = DesignVar({-45,  60});
          #var AnyVector KneeFlexion                    = DesignVar({0,  160});
          #var AnyVector AnklePlantarFlexion            = DesignVar({-80,  40});
-         #if LEG_LEFT == "Leg"
-         #var AnyVector AnkleEversion                  = DesignVar({-40,  40});
-         #else
          #var AnyVector SubTalarEversion               = DesignVar({-40,  40});
-         #endif
       };
       
     };
@@ -315,7 +307,7 @@ arguments for disabling individual joint limits:
        
 #endif
 
-#if LEG_RIGHT == "Leg" | LEG_RIGHT == "TLEM"
+#if LEG_RIGHT
 
        #if HIP_FLEXION == "On" 
        AnyFolder HipFlexion= 
@@ -364,7 +356,7 @@ arguments for disabling individual joint limits:
 #endif
 
        
-#if LEG_RIGHT == "TLEM"
+#if LEG_RIGHT
        
        #if SUBTALAR_EVERSION == "On" 
        AnyFolder SubTalarEversion= 
@@ -376,19 +368,7 @@ arguments for disabling individual joint limits:
        #endif
 
 #endif
-       
-#if LEG_RIGHT == "Leg"
 
-       #if SUBTALAR_EVERSION == "On" 
-       AnyFolder AnkleEversion= 
-       {
-          KinLimitsDriver Driver(
-             KinMeasure= ...InterfaceRef.Right.AnkleEversion
-          ) =  { LowerLimit =...Limits.Right.AnkleEversion[0]; HighLimit = ...Limits.Right.AnkleEversion[1]; MeasureConversion=180/pi; };
-       };
-       #endif
-
-#endif
 
      };//Right
 
@@ -490,7 +470,7 @@ arguments for disabling individual joint limits:
        
 #endif
 
-#if LEG_LEFT == "Leg" | LEG_LEFT == "TLEM"
+#if LEG_LEFT
 
        #if HIP_FLEXION == "On" 
        AnyFolder HipFlexion= 
@@ -539,7 +519,7 @@ arguments for disabling individual joint limits:
 #endif
 
        
-#if LEG_LEFT == "TLEM"
+#if LEG_LEFT
        
        #if SUBTALAR_EVERSION == "On" 
        AnyFolder SubTalarEversion= 
@@ -552,18 +532,6 @@ arguments for disabling individual joint limits:
 
 #endif
        
-#if LEG_LEFT == "Leg"
-
-       #if SUBTALAR_EVERSION == "On" 
-       AnyFolder AnkleEversion= 
-       {
-          KinLimitsDriver Driver(
-             KinMeasure= ...InterfaceRef.Left.AnkleEversion
-          ) =  { LowerLimit =...Limits.Left.AnkleEversion[0]; HighLimit = ...Limits.Left.AnkleEversion[1]; MeasureConversion=180/pi; };
-       };
-       #endif
-
-#endif
 
      };//Left   
  };

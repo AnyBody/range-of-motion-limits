@@ -1,4 +1,4 @@
-#include "JointsLimits_template.any"
+#include "RangeOfMotionLimits_template.any"
 
 #include "<ANYBODY_PATH_INSTALLDIR>/AMMR/Application/libdef.any"
 
@@ -10,8 +10,10 @@ Main = {
   #define BM_ARM_RIGHT ON
   #define BM_ARM_LEFT ON
   #define BM_TRUNK_NECK ON
-  #define BM_LEG_RIGHT CONST_LEG_MODEL_Leg
-  #define BM_LEG_LEFT CONST_LEG_MODEL_Leg
+  #define BM_LEG_RIGHT ON
+  #define BM_LEG_LEFT ON
+  
+  #define BM_LEG_MODEL _LEG_MODEL_TLEM1_
 
   #include "<ANYBODY_PATH_BODY>/HumanModel.any"
 
@@ -19,7 +21,7 @@ Main = {
      AnyFolder &model = .HumanModel.BodyModelWithDefaultDrivers;
      Gravity = {0.0, -9.81, 0};  
        
-     CreateJointLimitDrivers JointLimits(
+     RangeOfMotionLimits JointLimits(
               ARM_RIGHT = BM_ARM_RIGHT,
               ARM_LEFT = BM_ARM_LEFT,
               LEG_RIGHT = BM_LEG_RIGHT,
