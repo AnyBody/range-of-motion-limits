@@ -1,5 +1,11 @@
 # Joint limits
 
+>   **NOTE:** The range-of-motion class template is now built into the AnyBody Manged Model Repository (AMMR). 
+>             Include it like this: 
+>   ```
+>   #include "<ANYBODY_PATH_MODELUTILS>/KinematicLimits/RangeOfMotionLimits_template.any"
+>
+
 This repository contains the code for adding range-of-motion limits drivers to the human body model.
 
 The implementation consist of two AnyScript class templates. A low level class
